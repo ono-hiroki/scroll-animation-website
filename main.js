@@ -68,6 +68,37 @@ animationScripts.push({
     },
 });
 
+animationScripts.push({
+    start: 40,
+    end: 60,
+    function() {
+        camera.lookAt(box.position);
+        camera.position.set(0, 1, 10);
+        box.rotation.z = lerp(1, Math.PI, scalePercent(40, 60));
+    },
+});
+
+animationScripts.push({
+    start: 60,
+    end: 80,
+    function() {
+        camera.lookAt(box.position);
+        camera.position.x = lerp(0, -15, scalePercent(60, 80));
+        camera.position.y = lerp(1, 15, scalePercent(60, 80));
+        camera.position.z = lerp(10, 25, scalePercent(60, 80));
+    },
+});
+
+animationScripts.push({
+    start: 80,
+    end: 101,
+    function() {
+        camera.lookAt(box.position);
+        box.rotation.x += 0.02;
+        box.rotation.y += 0.02;
+    },
+});
+
 // スクロールアニメーションを実行する関数
 const playScrollAnimation = () => {
     animationScripts.forEach((script) => {
