@@ -33,16 +33,16 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 // オブジェクトの作成
-const boxGeometry = new THREE.BoxGeometry(5, 5, 5,10);
+const boxGeometry = new THREE.BoxGeometry(5, 5, 5, 10);
 const boxMaterial = new THREE.MeshNormalMaterial();
 const box = new THREE.Mesh(boxGeometry, boxMaterial);
 box.position.set(0, 0, -15);
 box.rotation.set(1, 1, 0);
 
-const torusGeometry = new THREE.TorusGeometry(8,2,16,100);
+const torusGeometry = new THREE.TorusGeometry(8, 2, 16, 100);
 const torusMaterial = new THREE.MeshNormalMaterial();
 const torus = new THREE.Mesh(torusGeometry, torusMaterial);
-torus.position.set(0,1, 10);
+torus.position.set(0, 1, 10);
 
 scene.add(box, torus);
 
@@ -64,6 +64,18 @@ const playScrollAnimation = () => {
     animationScripts.forEach((script) => {
         script.function();
     });
+};
+
+// ブラウザのスクロール率を取得
+let scrollePercent = 0;
+document.body.onscroll = () => {
+    const scroll = document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    scrollePercent = (scroll / height) * 100;
+
+    // スクロール率を取得
+    console.log(scrollePercent);
+
 };
 
 
