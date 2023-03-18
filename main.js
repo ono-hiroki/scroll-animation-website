@@ -46,6 +46,14 @@ torus.position.set(0, 1, 10);
 
 scene.add(box, torus);
 
+// 移動用の関数
+function lerp(start, end, t) {
+    return start * (1 - t) + end * t;
+}
+function scalePercent(start, end) {
+    return (scrollPercent - start) / (end - start);
+}
+
 // スクロールアニメーション
 const animationScripts = [];
 
@@ -55,27 +63,26 @@ animationScripts.push({
     function() {
         camera.lookAt(box.position);
         camera.position.set(0, 1, 10);
-        box.position.z += 0.01;
+        box.position.z = lerp(-15, 2, scalePercent(0, 40));
+        torus.position.z = lerp(10, -20, scalePercent(0, 40));
     },
 });
 
 // スクロールアニメーションを実行する関数
 const playScrollAnimation = () => {
     animationScripts.forEach((script) => {
-        script.function();
+        if (scrollPercent >= script.start && scrollPercent <= script.end) {
+            script.function();
+        }
     });
 };
 
 // ブラウザのスクロール率を取得
-let scrollePercent = 0;
+let scrollPercent = 0;
 document.body.onscroll = () => {
     const scroll = document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    scrollePercent = (scroll / height) * 100;
-
-    // スクロール率を取得
-    console.log(scrollePercent);
-
+    scrollPercent = (scroll / height) * 100;
 };
 
 
